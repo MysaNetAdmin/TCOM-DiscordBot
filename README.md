@@ -26,7 +26,8 @@ The file should follow this format and be named ``config.json``
 ```
 {
     "command_prefix": "chosen_prefix",
-    "discord_token": "your_token"
+    "discord_token": "your_token",
+    "gold_api_token": "your_token"
 }
 ```
 
