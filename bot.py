@@ -1,11 +1,13 @@
 import json
 import random
+
 import log
 import help
 import os
 import discord
 import requests
-from discord.ext import commands
+import logging
+from discord.ext import commands, tasks
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -14,6 +16,7 @@ COMMAND_PREFIX=os.getenv("COMMAND_PREFIX")
 DISCORD_TOKEN=os.getenv("DISCORD_TOKEN")
 GOLD_API_TOKEN=os.getenv("GOLD_API_TOKEN")
 OIL_API_TOKEN=os.getenv("OIL_API_TOKEN")
+
 
 def get_discord_token():
     with open('config.json') as json_file:
@@ -42,12 +45,12 @@ def get_prefix():
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix=DISCORD_TOKEN, intents=intents)
+bot = commands.Bot(command_prefix=get_prefix(), intents=intents)
 
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game("Hello la TCOM :wave:"))
+    await bot.change_presence(activity=discord.Activity(name="les TCOM 2024", type=discord.ActivityType.watching))
     log.info("Logged in as " + bot.user.name)
     # Displaying all the guilds the bot is connected to
     for guild in bot.guilds:
@@ -61,9 +64,10 @@ async def ping(context):
 
 @bot.command(description="Returns the current gold price, the euro/dollar conversion and the price of an oil barrel")
 async def stephan(context):
+    msg = await context.send("Récupération des données, veuillez patienter...")
     # Code pour récupérer le pris de l'or en dollar
     headers = {
-        'x-access-token': GOLD_API_TOKEN,
+        'x-access-token': get_gold_api_token(),
     }
     response_gold = requests.get('https://www.goldapi.io/api/XAU/USD', headers=headers)
     gold_price = json.loads(response_gold.text)['price']
@@ -75,14 +79,13 @@ async def stephan(context):
 
     # Code pour récupérer le prix du BRENT
     response_oil = requests.get('https://www.quandl.com/api/v3/datasets/CHRIS/ICE_B1.json', params={
-        'api_key': OIL_API_TOKEN,
+        'api_key': get_oil_api_token(),
     })
     data_oil = json.loads(response_oil.text)
     oil_price = data_oil['dataset']['data'][0][1]
 
-    await context.send(f"Cours de l'or: {str(gold_price)}$")
-    await context.send(f"Prix BRENT: {oil_price}$")
-    await context.send(f"1€ = {euro_to_dollar}$")
+    await msg.delete()
+    await context.send(f"Cours de l'or: {str(gold_price)}\nPrix BRENT: {oil_price}$\n1€ = {euro_to_dollar}$")
 
 
 @bot.command(description="Monsieur Gaillard")
@@ -125,5 +128,22 @@ async def stop(context):
     bot.loop.stop()
 
 
+#Message 1
+@tasks.loop(seconds=5)
+async def called_once_a_day():
+    tcom_general_id = 1072918366144168058
+    message_channel = bot.get_channel(tcom_general_id)
+    await message_channel.send("test 1")
+
+
+@called_once_a_day.before_loop
+async def before():
+    await bot.wait_until_ready()
+    print("Finished waiting")
+
+
+#called_once_a_day.start()
+
 log.info("Discord version: " + str(discord.version_info))
-bot.run(get_discord_token())
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+bot.run(get_discord_token(), log_handler=handler)
