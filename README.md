@@ -21,15 +21,13 @@ To install all the packages needed to run this bot, simply type the following co
 ## Configuration Files
 
 To run this bot need a json file containing the prefix to use and the discord token.
-The file should follow this format and be named ``config.json``
+The file should follow this format and be named ``.env``
 
 ```
-{
-    "command_prefix": "chosen_prefix",
-    "discord_token": "your_token",
-    "gold_api_token": "your_token",
-    "oil_api_token": "your_token"
-}
+COMMAND_PREFIX=YOUR_TOKEN
+DISCORD_TOKEN=YOUR_TOKEN
+GOLD_API_TOKEN=YOUR_TOKEN
+OIL_API_TOKEN=YOUR_TOKEN
 ```
 
 To get your discord token API key go at this [address](https://discordapp.com/developers/applications/).

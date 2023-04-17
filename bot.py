@@ -2,10 +2,18 @@ import json
 import random
 import log
 import help
+import os
 import discord
 import requests
 from discord.ext import commands
+from dotenv import load_dotenv
 
+load_dotenv()
+
+COMMAND_PREFIX=os.getenv("COMMAND_PREFIX")
+DISCORD_TOKEN=os.getenv("DISCORD_TOKEN")
+GOLD_API_TOKEN=os.getenv("GOLD_API_TOKEN")
+OIL_API_TOKEN=os.getenv("OIL_API_TOKEN")
 
 def get_discord_token():
     with open('config.json') as json_file:
@@ -34,7 +42,7 @@ def get_prefix():
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix=get_prefix(), intents=intents)
+bot = commands.Bot(command_prefix=DISCORD_TOKEN, intents=intents)
 
 
 @bot.event
@@ -55,7 +63,7 @@ async def ping(context):
 async def stephan(context):
     # Code pour récupérer le pris de l'or en dollar
     headers = {
-        'x-access-token': get_gold_api_token(),
+        'x-access-token': GOLD_API_TOKEN,
     }
     response_gold = requests.get('https://www.goldapi.io/api/XAU/USD', headers=headers)
     gold_price = json.loads(response_gold.text)['price']
@@ -67,7 +75,7 @@ async def stephan(context):
 
     # Code pour récupérer le prix du BRENT
     response_oil = requests.get('https://www.quandl.com/api/v3/datasets/CHRIS/ICE_B1.json', params={
-        'api_key': get_oil_api_token(),
+        'api_key': OIL_API_TOKEN,
     })
     data_oil = json.loads(response_oil.text)
     oil_price = data_oil['dataset']['data'][0][1]
