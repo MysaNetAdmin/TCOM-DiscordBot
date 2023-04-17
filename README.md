@@ -27,13 +27,19 @@ The file should follow this format and be named ``config.json``
 {
     "command_prefix": "chosen_prefix",
     "discord_token": "your_token",
-    "gold_api_token": "your_token"
+    "gold_api_token": "your_token",
+    "oil_api_token": "your_token"
 }
 ```
 
 To get your discord token API key go at this [address](https://discordapp.com/developers/applications/).
 Then if you haven't already configured your application, make a new application with the desired name
 and logo for your bot.
+
+Explain how to get other tokens
+
+GOLD API: 
+BRENT API: https://data.nasdaq.com/sign-up
 
 Finally get your token key in the ``Bot`` section. 
 
