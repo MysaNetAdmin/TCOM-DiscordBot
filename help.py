@@ -37,12 +37,12 @@ class Help(commands.Cog):
         """Shows all modules of that bot"""
 
         # !SET THOSE VARIABLES TO MAKE THE COG FUNCTIONAL!
-        prefix =  # ENTER YOUR PREFIX - loaded from config, as string or how ever you want!
-        version =  # enter version of your code
+        prefix = "tcom!" # ENTER YOUR PREFIX - loaded from config, as string or how ever you want!
+        version =  "1.0" # enter version of your code
 
         # setting owner name - if you don't wanna be mentioned remove line 49-60 and adjust help text (line 88)
-        owner =  # ENTER YOU DISCORD-ID
-        owner_name =  # ENTER YOUR USERNAME#1234
+        owner = 203212051739443210 # ENTER YOUR DISCORD-ID
+        owner_name = Mysa#2413 # ENTER YOUR USERNAME#1234
 
         # checks if cog parameter was given
         # if not: sending all modules and commands not associated with a cog
