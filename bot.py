@@ -81,11 +81,18 @@ async def stephan(context):
 
 @bot.command(description="Monsieur Gaillard")
 async def gaillard(context):
-    quotesGaillard = open("quotesGaillard.txt", "r")
+    quotesGaillard = open("quotesGaillard.txt", "r", encoding="utf8")
     temp = quotesGaillard.read().split('\n')
 
     await context.send(random.choice(temp) + " - Gaillard <:gigaillard:1091265756395753492>")
 
+
+@bot.command(description="Monsieur Michaux")
+async def michaux(context):
+    quotesMichaux = open("quotesMichaux.txt", "r", encoding="utf8")
+    temp = quotesMichaux.read().split('\n')
+
+    await context.send(random.choice(temp) + " - Michaux <:sleeping_michaux:1063746563366727740>")
 
 @bot.command(description="Demande une pause à Garance")
 async def pause(context):
@@ -95,12 +102,6 @@ async def pause(context):
     await context.send("Est-ce qu\'on peut avoir une pause s\'il te plait ?", file=discord.File('dring.gif'))
 
 
-@bot.command(description="Monsieur Michaux")
-async def michaux(context):
-    quotesMichaux = open("quotesMichaux.txt", "r")
-    temp = quotesMichaux.read().split('\n')
-
-    await context.send(random.choice(temp) + " - Michaux <:sleeping_michaux:1063746563366727740>")
 
 @bot.command(description="Stops the bot")
 @commands.is_owner()
@@ -108,16 +109,6 @@ async def stop(context):
     await context.send("Stopping bot !")
     log.info("Stopping bot !")
     bot.loop.stop()
-
-
-@bot.event
-async def on_message(message):
-    context = await bot.get_context(message)
-    match message.content:
-        case "Michaux":
-            temp = await michaux(context)
-        case "Gaillard":
-            temp = await gaillard(context)
 
 
 log.info("Discord version: " + str(discord.version_info))

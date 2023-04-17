@@ -36,13 +36,11 @@ To get your discord token API key go at this [address](https://discordapp.com/de
 Then if you haven't already configured your application, make a new application with the desired name
 and logo for your bot.
 
-Explain how to get other tokens
+How to get other tokens:
+- GOLD API: https://www.goldapi.io/
+- BRENT API: https://data.nasdaq.com/sign-up
 
-GOLD API: 
-BRENT API: https://data.nasdaq.com/sign-up
-
-Finally get your token key in the ``Bot`` section. 
-
+Finally get your token key in the ``Bot`` section.
 
 ## Running the bot
 
