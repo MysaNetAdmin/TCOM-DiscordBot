@@ -94,13 +94,21 @@ async def michaux(context):
 
     await context.send(random.choice(temp) + " - Michaux <:sleeping_michaux:1063746563366727740>")
 
+
+@bot.command(description="Monsieur Michaux")
+async def chef(context):
+    quotesStephan = open("quotesStephan.txt", "r", encoding="utf8")
+    temp = quotesStephan.read().split('\n')
+
+    await context.send(random.choice(temp) + " - Stephan <:happy_stephan:990148651680669766>")
+
+
 @bot.command(description="Demande une pause à Garance")
 async def pause(context):
     # Si jamais on veut spammer le responsable pauses
     #resp_pause_id = "221310481875337217"
     #await context.send(f"<@{resp_pause_id}> Est-ce qu\'on peut avoir une pause s\'il te plait ?")
     await context.send("Est-ce qu\'on peut avoir une pause s\'il te plait ?", file=discord.File('dring.gif'))
-
 
 
 @bot.command(description="Stops the bot")
