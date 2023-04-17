@@ -1,11 +1,9 @@
 import json
 import random
-
 import log
+import help
 import discord
-import datetime
 import requests
-from datetime import date
 from discord.ext import commands
 
 
