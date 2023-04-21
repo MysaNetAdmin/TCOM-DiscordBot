@@ -3,6 +3,6 @@ version: '3.9'
 services:
   bot:
     build: .
-    environment:
-      - DISCORD_BOT_TOKEN=<votre_token>
+    command:
+      - python bot.py
     restart: always
