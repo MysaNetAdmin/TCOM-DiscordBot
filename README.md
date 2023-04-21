@@ -21,7 +21,7 @@ To install all the packages needed to run this bot, simply type the following co
 ## Configuration Files
 
 To run this bot need a json file containing the prefix to use and the discord token.
-The file should follow this format and be named ``.env``
+The file should follow this format and be named ``config.json``
 
 ```
 COMMAND_PREFIX=YOUR_TOKEN

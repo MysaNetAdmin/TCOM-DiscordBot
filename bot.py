@@ -1,18 +1,11 @@
 import json
 import random
-
 import log
-import help
-import os
 import discord
 import requests
 import logging
-from discord.ext import commands, tasks
 
-COMMAND_PREFIX = os.getenv("COMMAND_PREFIX")
-DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
-GOLD_API_TOKEN = os.getenv("GOLD_API_TOKEN")
-OIL_API_TOKEN = os.getenv("OIL_API_TOKEN")
+from discord.ext import commands, tasks
 
 
 def get_discord_token():
