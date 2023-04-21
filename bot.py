@@ -8,14 +8,11 @@ import discord
 import requests
 import logging
 from discord.ext import commands, tasks
-from dotenv import load_dotenv
 
-load_dotenv()
-
-COMMAND_PREFIX=os.getenv("COMMAND_PREFIX")
-DISCORD_TOKEN=os.getenv("DISCORD_TOKEN")
-GOLD_API_TOKEN=os.getenv("GOLD_API_TOKEN")
-OIL_API_TOKEN=os.getenv("OIL_API_TOKEN")
+COMMAND_PREFIX = os.getenv("COMMAND_PREFIX")
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+GOLD_API_TOKEN = os.getenv("GOLD_API_TOKEN")
+OIL_API_TOKEN = os.getenv("OIL_API_TOKEN")
 
 
 def get_discord_token():
@@ -115,8 +112,8 @@ async def chef(context):
 @bot.command(description="Demande une pause à Garance")
 async def pause(context):
     # Si jamais on veut spammer le responsable pauses
-    #resp_pause_id = "221310481875337217"
-    #await context.send(f"<@{resp_pause_id}> Est-ce qu\'on peut avoir une pause s\'il te plait ?")
+    # resp_pause_id = "221310481875337217"
+    # await context.send(f"<@{resp_pause_id}> Est-ce qu\'on peut avoir une pause s\'il te plait ?")
     await context.send("Est-ce qu\'on peut avoir une pause s\'il te plait ?", file=discord.File('dring.gif'))
 
 
@@ -128,7 +125,7 @@ async def stop(context):
     bot.loop.stop()
 
 
-#Message 1
+# Message 1
 @tasks.loop(seconds=5)
 async def called_once_a_day():
     tcom_general_id = 1072918366144168058
@@ -142,7 +139,7 @@ async def before():
     print("Finished waiting")
 
 
-#called_once_a_day.start()
+# called_once_a_day.start()
 
 log.info("Discord version: " + str(discord.version_info))
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
