@@ -80,26 +80,31 @@ async def stephan(context):
 
 @bot.command(description="Monsieur Gaillard")
 async def gaillard(context):
-    quotesGaillard = open("quotesGaillard.txt", "r", encoding="utf8")
-    temp = quotesGaillard.read().split('\n')
+    quotes_gaillard = open("quotesGaillard.txt", "r", encoding="utf8")
+    temp = quotes_gaillard.read().split('\n')
 
     await context.send(random.choice(temp) + " - Gaillard <:gigaillard:1091265756395753492>")
 
 
 @bot.command(description="Monsieur Michaux")
 async def michaux(context):
-    quotesMichaux = open("quotesMichaux.txt", "r", encoding="utf8")
-    temp = quotesMichaux.read().split('\n')
+    quotes_gaillard = open("quotesMichaux.txt", "r", encoding="utf8")
+    temp = quotes_gaillard.read().split('\n')
 
     await context.send(random.choice(temp) + " - Michaux <:sleeping_michaux:1063746563366727740>")
 
 
 @bot.command(description="Monsieur Michaux")
 async def chef(context):
-    quotesStephan = open("quotesStephan.txt", "r", encoding="utf8")
-    temp = quotesStephan.read().split('\n')
+    quotes_stephan = open("quotesStephan.txt", "r", encoding="utf8")
+    temp = quotes_stephan.read().split('\n')
 
     await context.send(random.choice(temp) + " - Stephan <:happy_stephan:990148651680669766>")
+
+
+@bot.command(description="Donne le numéro de téléphone de l'EPITA")
+async def epita(context):
+    await context.send("01 44 08 01 01")
 
 
 @bot.command(description="Demande une pause à Garance")

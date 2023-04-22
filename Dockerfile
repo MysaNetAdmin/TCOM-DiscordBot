@@ -1,6 +1,16 @@
-FROM python:3.9-slim-buster
+FROM python:3.9
+
+# Set the working directory
 WORKDIR /app
-COPY requirements.txt /app
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . /app
-CMD ["python", "bot.py"]
+
+# Copy the requirements file
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install -r requirements.txt
+
+# Copy the rest of the application code
+COPY . .
+
+# Set the entrypoint
+ENTRYPOINT ["python", "/app/bot.py"]
