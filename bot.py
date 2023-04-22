@@ -1,4 +1,5 @@
 import json
+import os
 import random
 import log
 import discord
@@ -8,34 +9,16 @@ import logging
 from discord.ext import commands, tasks
 
 
-def get_discord_token():
-    with open('config.json') as json_file:
-        data = json.load(json_file)
-        return data["discord_token"]
-
-
-def get_gold_api_token():
-    with open('config.json') as json_file:
-        data = json.load(json_file)
-        return data["gold_api_token"]
-
-
-def get_oil_api_token():
-    with open('config.json') as json_file:
-        data = json.load(json_file)
-        return data["oil_api_token"]
-
-
-def get_prefix():
-    with open('config.json') as json_file:
-        data = json.load(json_file)
-        return data["command_prefix"]
+COMMAND_PREFIX = os.environ.get('COMMAND_PREFIX')
+DISCORD_TOKEN = os.environ.get('DISCORD_TOKEN')
+gold_api_token = os.environ.get('gold_api_token')
+oil_api_token = os.environ.get('oil_api_token')
 
 
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix=get_prefix(), intents=intents)
+bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents)
 
 
 @bot.event
@@ -57,7 +40,7 @@ async def stephan(context):
     msg = await context.send("Récupération des données, veuillez patienter...")
     # Code pour récupérer le pris de l'or en dollar
     headers = {
-        'x-access-token': get_gold_api_token(),
+        'x-access-token': gold_api_token,
     }
     response_gold = requests.get('https://www.goldapi.io/api/XAU/USD', headers=headers)
     gold_price = json.loads(response_gold.text)['price']
@@ -69,7 +52,7 @@ async def stephan(context):
 
     # Code pour récupérer le prix du BRENT
     response_oil = requests.get('https://www.quandl.com/api/v3/datasets/CHRIS/ICE_B1.json', params={
-        'api_key': get_oil_api_token(),
+        'api_key': oil_api_token,
     })
     data_oil = json.loads(response_oil.text)
     oil_price = data_oil['dataset']['data'][0][1]
@@ -141,4 +124,4 @@ async def before():
 
 log.info("Discord version: " + str(discord.version_info))
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-bot.run(get_discord_token(), log_handler=handler)
+bot.run(DISCORD_TOKEN, log_handler=handler)

@@ -1,3 +1,4 @@
 discord.py
-colorama
-requests
+colorama~=0.4.6
+requests~=2.28.2
+discord~=2.2.2
