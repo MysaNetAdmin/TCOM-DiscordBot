@@ -1,5 +1,7 @@
+import datetime
 import json
 import random
+import time
 
 import log
 import help
@@ -104,7 +106,15 @@ async def michaux(context):
     await context.send(random.choice(temp) + " - Michaux <:sleeping_michaux:1063746563366727740>")
 
 
-@bot.command(description="Monsieur Michaux")
+@bot.command(description="Monsieur Bourbon")
+async def michaux(context):
+    quotesMichaux = open("quotesBourbon.txt", "r", encoding="utf8")
+    temp = quotesMichaux.read().split('\n')
+
+    await context.send(random.choice(temp) + " - Bourbon <:sleeping_michaux:1063746563366727740>")
+
+
+@bot.command(description="Le chef de majeure")
 async def chef(context):
     quotesStephan = open("quotesStephan.txt", "r", encoding="utf8")
     temp = quotesStephan.read().split('\n')
@@ -128,22 +138,22 @@ async def stop(context):
     bot.loop.stop()
 
 
-#Message 1
-@tasks.loop(seconds=5)
-async def called_once_a_day():
-    tcom_general_id = 1072918366144168058
-    message_channel = bot.get_channel(tcom_general_id)
-    await message_channel.send("test 1")
-
-
-@called_once_a_day.before_loop
-async def before():
+async def auto_stephan():
     await bot.wait_until_ready()
-    print("Finished waiting")
 
+    while not bot.is_closed():
+        channel = bot.get_channel(1072918366144168058)
+        dt_now = datetime.datetime.now()
 
-#called_once_a_day.start()
+        if dt_now.hour == 17 and dt_now.minute == 44 and dt_now.day == 17:
+            await channel.send("Bonjour les TCOM, voici les données pour le cours de M. Stephan")
+            await stephan(bot.get_context())
+
+        await asyncio.sleep(3600)
+
 
 log.info("Discord version: " + str(discord.version_info))
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+
+#bot.loop.create_task(auto_stephan())
 bot.run(get_discord_token(), log_handler=handler)
